@@ -1,6 +1,7 @@
 "use client";
 
 import * as Collapsible from "@radix-ui/react-collapsible";
+import * as Slider from "@radix-ui/react-slider";
 import { CheckIcon, SparklesIcon } from "lucide-react";
 import React from "react";
 import { UseFormReturn } from "react-hook-form";
@@ -108,6 +109,39 @@ export const FormStylingSettings = ({
 
         <div className="flex flex-col gap-6 p-6 pt-2">
           <div className="flex flex-col gap-2">
+            <FormField
+              control={form.control}
+              name="fontSize"
+              render={({ field }) => (
+                <FormItem className="space-y-4">
+                  <div>
+                    <FormLabel>Font size</FormLabel>
+                    <FormDescription>Change the font size.</FormDescription>
+                  </div>
+
+                  <FormControl>
+                    <div className="rounded-lg border bg-slate-50 p-6">
+                      <Slider.Root
+                        className="SliderRoot"
+                        value={[field.value as number]}
+                        max={60}
+                        step={1}
+                        onValueChange={(value) => {
+                          field.onChange(value[0]);
+                        }}>
+                        <Slider.Track className="SliderTrack">
+                          <Slider.Range className="SliderRange" />
+                        </Slider.Track>
+                        <Slider.Thumb className="SliderThumb" aria-label="Volume">
+                          {field.value}
+                        </Slider.Thumb>
+                      </Slider.Root>
+                    </div>
+                  </FormControl>
+                </FormItem>
+              )}
+            />
+
             <FormField
               control={form.control}
               name="brandColor.light"
